@@ -1,11 +1,11 @@
 # makefile
 
 version1: version1.o
-	mpicc -std=c99 version1.o -o -lm matrixMain
+	mpicc -std=c99 -lm version1.o -o  matrixMain
 	mpirun -n 2 ./matrixMain
 
 version1.o: version1.c matrixFunctions.c
-	mpicc -std=c99 -c version1.c
+	mpicc -std=c99 -c  version1.c
 
 version2: version2.o
 	mpicc -std=c99 version2.o -o version2
