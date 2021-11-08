@@ -393,23 +393,4 @@ int main(int argc, char** argv) {
 
 
 
-/*
-    FOR TESTING THE NORM VECTOR 
-  // Matrix test;
-  // test.rows = 1;
-  // test.cols = 4;
-  // test.data = malloc( test.rows* test.cols * sizeof(double));
-  // double count =1;
-  // for(int i =0; i< test.rows* test.cols ;i++){
-  //   test.data[i] = count++;
-  //   // printf("data= %f\n", test.data[i]);
-
-  // }
-  // printf("ans= %f\n", euclidean_norm(test));
-
-  */
-
-
-
-
 
