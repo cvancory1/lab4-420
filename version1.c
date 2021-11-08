@@ -235,7 +235,10 @@ int main(int argc, char** argv) {
   for(int i = 0; i < Kalyn.rows * Kalyn.cols ; i ++){
     Kalyn.data[i] = arr2[i];
   }
-
+  if(rank ==0) {
+    printf("\nprintingMatrix\n");
+    printMatrix(Kalyn);
+  }
 
   SGData K_counts = getSGCounts(Kalyn.rows, Kalyn.cols , worldSize);
 
@@ -288,6 +291,11 @@ int main(int argc, char** argv) {
    for(int i = 0; i < Bevan.rows * Bevan.cols ; i ++){
     Bevan.data[i] = arr3[i];
   }
+  if(rank ==0) {
+    printf("\nprintingMatrix\n");
+    printMatrix(Bevan);
+  }
+
 
   SGData B_counts = getSGCounts(Bevan.rows, Bevan.cols , worldSize);
 
@@ -335,7 +343,11 @@ int main(int argc, char** argv) {
     test3.data[i] = arr4[i];
   }
 
-  if(rank==0) printMatrix(test3);
+  if(rank ==0) {
+    printf("\nprintingMatrix\n");
+    printMatrix(test3);
+  }
+
 
   SGData test3_counts = getSGCounts(test3.rows, test3.cols , worldSize);
 
@@ -370,7 +382,7 @@ int main(int argc, char** argv) {
   // if(rank ==1) printMatrix(localtest3);
 
   eigenvalue = powerMethod(localtest3,onesVector3, test3.rows, test3.cols, 3,THRESHOLD);
-  printf("EIGENVALUE= %f\n",eigenvalue );
+  if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
 
 
 
