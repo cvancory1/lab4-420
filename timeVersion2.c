@@ -1,7 +1,9 @@
 
 /*
-Chloe VanCory & Kalyn Howes
-Lab 4 
+  Chloe VanCory & Kalyn Howes 
+  COSC 420 
+  11/ 8/2021
+  Lab 4 - page rank power method
 
 GOAL : uses MPI_File access methods to read/write the distributed “chunks” of A and x to files instead 
 of using scatter/gather.

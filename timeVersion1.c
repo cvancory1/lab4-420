@@ -1,12 +1,16 @@
 
 /*
 
-Chloe VanCory & Kalyn Howes
-Lab 4 - 
+  Chloe VanCory & Kalyn Howes 
+  COSC 420 
+  11/ 8/2021
+  Lab 4 - page rank power method
 
 GOAL : the root processor reads the entire A and x data from a file and scatters them appropriately to 
 perform the matrix multiplication with your existing library. Then use other collectives as appropriate to 
 perform the update and normalization in parallel.
+
+OUTPUT
 
 */
 
