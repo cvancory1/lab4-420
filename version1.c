@@ -81,6 +81,7 @@ int main(int argc, char** argv) {
   int cols = 5;
   int THRESHOLD = 20;
   double e = 10E-16;
+  double eigenvalue ;
 
 
   /*
@@ -146,75 +147,76 @@ int main(int argc, char** argv) {
 
   */
   
-  Matrix A;
-
-  // parse the file and into a matrix of doubles
-
-  MPI_File_read(matDimFile, 
-                &A.rows, 
-                1, 
-                MPI_INT, 
-                MPI_STATUS_IGNORE);
-  // printf("Rank %d A.rows =%d\n", rank, A.rows);
-
-  MPI_File_read(matDimFile, 
-                &A.cols, 
-                1, 
-                MPI_INT, 
-                MPI_STATUS_IGNORE);
-  // printf("Rank %d A.cols =%d\n", rank, A.cols );
-
-  A.data = malloc(A.rows * A.cols * sizeof(double));
-
-  MPI_File_read(matDataFile, 
-                A.data, 
-                A.rows*A.cols, 
-                MPI_DOUBLE, 
-                MPI_STATUS_IGNORE);
+  // Matrix A;
 
 
-  if(rank ==ROOT){
-    printMatrix(A);
-  }
+  // // parse the file and into a matrix of doubles
+
+  // MPI_File_read(matDimFile, 
+  //               &A.rows, 
+  //               1, 
+  //               MPI_INT, 
+  //               MPI_STATUS_IGNORE);
+  // // printf("Rank %d A.rows =%d\n", rank, A.rows);
+
+  // MPI_File_read(matDimFile, 
+  //               &A.cols, 
+  //               1, 
+  //               MPI_INT, 
+  //               MPI_STATUS_IGNORE);
+  // // printf("Rank %d A.cols =%d\n", rank, A.cols );
+
+  // A.data = malloc(A.rows * A.cols * sizeof(double));
+
+  // MPI_File_read(matDataFile, 
+  //               A.data, 
+  //               A.rows*A.cols, 
+  //               MPI_DOUBLE, 
+  //               MPI_STATUS_IGNORE);
 
 
-  SGData scatter = getSGCounts(A.rows, A.cols , worldSize);
+  // if(rank ==ROOT){
+  //   printMatrix(A);
+  // }
 
-  Matrix localMatrix;
-  localMatrix.rows =  scatter.cnts[rank] / A.rows;
-  localMatrix.cols = A.cols;
-  localMatrix.data = malloc(localMatrix.rows  * localMatrix.cols * sizeof(double));
-  // printf("RANK =%d localMatrix rows= %d cols=%d\n", rank,localMatrix.rows,localMatrix.cols);
 
-  MPI_Scatterv(
-            A.data,                // sendbuf
-            scatter.cnts,        // sendcnts
-            scatter.displs,      // displacements
-            MPI_DOUBLE,               // datatype
-            localMatrix.data,              // recvbuf
-            scatter.cnts[rank],  // recvcnt
-            MPI_DOUBLE, ROOT, world);
+  // SGData scatter = getSGCounts(A.rows, A.cols , worldSize);
+
+  // Matrix localMatrix;
+  // localMatrix.rows =  scatter.cnts[rank] / A.rows;
+  // localMatrix.cols = A.cols;
+  // localMatrix.data = malloc(localMatrix.rows  * localMatrix.cols * sizeof(double));
+  // // printf("RANK =%d localMatrix rows= %d cols=%d\n", rank,localMatrix.rows,localMatrix.cols);
+
+  // MPI_Scatterv(
+  //           A.data,                // sendbuf
+  //           scatter.cnts,        // sendcnts
+  //           scatter.displs,      // displacements
+  //           MPI_DOUBLE,               // datatype
+  //           localMatrix.data,              // recvbuf
+  //           scatter.cnts[rank],  // recvcnt
+  //           MPI_DOUBLE, ROOT, world);
 
 
   // char *arrbuf = bufArr(localMatrix.data, scatter.cnts[rank]);
   // printf("Rank %d received %s\n", rank, arrbuf);  
 
   // everyone declares a  X vector 
-  Matrix X; 
-  X.rows = localMatrix.cols;
-  X.cols = 1;
-  X.data= malloc(X.rows * X.cols * sizeof(double));
-  // printf("RANK =%d localX rows= %d cols=%d\n", rank,X.rows,X.cols);
+  // Matrix X; 
+  // X.rows = localMatrix.cols;
+  // X.cols = 1;
+  // X.data= malloc(X.rows * X.cols * sizeof(double));
+  // // printf("RANK =%d localX rows= %d cols=%d\n", rank,X.rows,X.cols);
 
 
-  /* set X to the 1's vector */
-  for(int i =0 ;i < X.rows* X.cols; i++) X.data[i] = 1;
-  char *arrbuf2 = bufArr(X.data, X.rows* X.cols);
-  // printf("Rank %d received %s\n", rank, arrbuf2);  
+  // /* set X to the 1's vector */
+  // for(int i =0 ;i < X.rows* X.cols; i++) X.data[i] = 1;
+  // char *arrbuf2 = bufArr(X.data, X.rows* X.cols);
+  // // printf("Rank %d received %s\n", rank, arrbuf2);  
 
  
-  double eigenvalue = powerMethod(localMatrix,X, A.rows, A.cols,THRESHOLD,e);
-  if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
+  //  eigenvalue = powerMethod(localMatrix,X, A.rows, A.cols,THRESHOLD,e);
+  // if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
 
 
 
