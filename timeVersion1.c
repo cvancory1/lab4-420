@@ -166,9 +166,9 @@ int main(int argc, char** argv) {
                 MPI_STATUS_IGNORE);
 
 
-//   if(rank ==ROOT){
-//     printMatrix(A);
-//   }
+  if(rank ==ROOT){
+    printMatrix(A);
+  }
 
 
   SGData scatter = getSGCounts(A.rows, A.cols , worldSize);
