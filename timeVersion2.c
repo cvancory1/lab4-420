@@ -169,9 +169,15 @@ int main(int argc, char** argv) {
 
   MPI_Bcast(onesVector.data,onesVector.rows* onesVector.cols , MPI_DOUBLE, ROOT, world);
   
+
+
+  double startTime, stopTime;
+  startTime = MPI_Wtime();
   double eigenvalue = powerMethod(A ,onesVector, totalRows, totalCols , THRESHOLD, e);
   if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
-
+  stopTime = MPI_Wtime();
+  if(rank ==0 ) printf("MPI_Wtime measured: %2.5f seconds\n", stopTime-startTime); 
+  fflush(stdout); // manually flush the buffer for safety
 
   MPI_File_close(&matDataFile);
   MPI_File_close(&matDimFile);

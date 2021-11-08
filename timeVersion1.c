@@ -209,7 +209,14 @@ int main(int argc, char** argv) {
 //   char *arrbuf2 = bufArr(X.data, X.rows* X.cols);
 //   printf("Rank %d received %s\n", rank, arrbuf2);  
 
+
+  double startTime, stopTime;
+  startTime = MPI_Wtime();
   double eigenvalue = powerMethod(localMatrix,X,A.rows, A.cols, THRESHOLD, e);
+  stopTime = MPI_Wtime();
+  if(rank ==0 ) printf("MPI_Wtime measured: %2.5f seconds\n", stopTime-startTime); 
+  fflush(stdout); // manually flush the buffer for safety
+
   if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
   
 
