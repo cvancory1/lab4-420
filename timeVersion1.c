@@ -166,9 +166,9 @@ int main(int argc, char** argv) {
                 MPI_STATUS_IGNORE);
 
 
-  if(rank ==ROOT){
-    printMatrix(A);
-  }
+//   if(rank ==ROOT){
+//     printMatrix(A);
+//   }
 
 
   SGData scatter = getSGCounts(A.rows, A.cols , worldSize);
@@ -206,7 +206,7 @@ int main(int argc, char** argv) {
 //   printf("Rank %d received %s\n", rank, arrbuf2);  
 
   double eigenvalue = powerMethod(localMatrix,X,A.rows, A.cols, THRESHOLD, e);
-  printf("EIGENVALUE= %f\n",eigenvalue );
+  if(rank ==0 )printf("EIGENVALUE= %f\n",eigenvalue );
   
 
 
